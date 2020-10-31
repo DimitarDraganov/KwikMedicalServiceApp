@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Caller system</title>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+
+
+<div align="center" class="container my-2">
+	
+	<h1> Patient details</h1>
+	
+
+	
+	<table class = "table table-striped table-responsive-md">
+		<thead>
+			<th> NHS Number</th>
+			<th> Name </th>
+			<th> Address</th>
+			<th> Condition </th>				
+		</thead>		
+
+		<tbody>
+			<tr th:each="caller : ${listCallerDetails}">
+				<td th:text="${caller.registernum}"></td>
+				<td th:text="${caller.name}"></td>
+				<td th:text="${caller.address}"></td>
+				<td th:text="${caller.medcondition}"></td>
+				<td></td>	
+				<td></td>
+				<td></td>	
+			</tr>
+			
+			<thead>
+				<th> Age</th>
+				<th> Height</th>
+				<th> Weight</th>
+				<th> Sex</th>
+				<th> Alergies</th>	
+				<th> Bloodtype</th>
+				<th> Pre-existing ondition</th>			
+			</thead>			
+			<tr th:each="caller : ${existingMedDetails}">
+				<td th:text="${caller.age}"></td>
+				<td th:text="${caller.height}"></td>
+				<td th:text="${caller.weight}"></td>
+				<td th:text="${caller.sex}"></td>
+				<td th:text="${caller.alergy}"></td>
+				<td th:text="${caller.bloodtype}"></td>
+				<td th:text="${caller.preexistingcondition}"></td>
+				<td></td>	
+				<td></td>
+				<td></td>	
+			</tr>	
+		</tbody>	
+	</table>
+		
+</div>
+
+</body>
+</html>

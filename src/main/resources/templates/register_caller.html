@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Enter caller details</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+</head>
+<body>
+	<div class="container">
+		<h1>Enter Caller details</h1>
+		<hr>
+		<h2> Enter Caller </h2>
+		
+		<form action="#" th:action="@{/saveCaller}" th:object ="${caller}" method="POST">
+		
+			<input type="text" th:field = "*{registernum}" placeholder="NHS number" class="form-control mb-4 col-4">
+			
+			<input type="text" th:field = "*{name}" placeholder="Name" class="form-control mb-4 col-4">
+			
+			<input type="text" th:field = "*{address}" placeholder="Address" class="form-control mb-4 col-4">
+			
+			<input type="text" th:field = "*{medcondition}" placeholder="Condition" class="form-control mb-4 col-4">
+			
+			<button type="submit" class="btn btn-info col-2">Enter Details</button>
+		
+		</form>
+		
+		
+		
+		
+	</div>
+
+</body>
+</html>
