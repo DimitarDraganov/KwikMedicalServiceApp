@@ -22,7 +22,8 @@
 			<th> NHS Number</th>
 			<th> Name </th>
 			<th> Address</th>
-			<th> Condition </th>				
+			<th> Condition </th>
+			<th> Call out details</th>				
 		</thead>		
 
 		<tbody>
@@ -31,9 +32,9 @@
 				<td th:text="${caller.name}"></td>
 				<td th:text="${caller.address}"></td>
 				<td th:text="${caller.medcondition}"></td>
-				<td></td>	
-				<td></td>
-				<td></td>	
+				<!-- <td> <a th:href="@{/showFormForUpdate/{id}(id=${caller.id})}" class="btn btn-primary">Update</a></td> -->
+				<!-- <td> <a th:href = "@{/showFormForUpdates}" class="btn btn-primary btn-sm mb-3">Update details</a> <td> -->
+				<td> <a th:href="@{/showFormForUpdates/{id}(id=${caller.registernum})}" class="btn btn-primary">Update</a></td>
 			</tr>
 			
 			<thead>
@@ -43,7 +44,7 @@
 				<th> Sex</th>
 				<th> Alergies</th>	
 				<th> Bloodtype</th>
-				<th> Pre-existing ondition</th>			
+				<th> Pre-existing condition</th>			
 			</thead>			
 			<tr th:each="caller : ${existingMedDetails}">
 				<td th:text="${caller.age}"></td>
@@ -59,6 +60,10 @@
 			</tr>	
 		</tbody>	
 	</table>
+	
+	<!-- < <a th:href="@{/showFormForUpdates}" class="btn btn-primary">Update</a> -->
+	
+	<!-- <a th:href = "@{/showFormForUpdates}" class="btn btn-primary btn-sm mb-3">Update</a> -->
 		
 </div>
 

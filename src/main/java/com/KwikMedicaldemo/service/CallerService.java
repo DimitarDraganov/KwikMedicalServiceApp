@@ -7,4 +7,5 @@ import com.KwikMedicaldemo.model.Caller;
 public interface CallerService {
 	List<Caller> getAllCallers();	
 	void saveCaller(Caller caller);
+	Caller getCallerById(long id);
 }

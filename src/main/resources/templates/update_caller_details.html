@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Update details</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+	<div class="container">
+		<h1>Enter call-out details</h1>
+		<hr>
+		<h2> Enter details </h2>
+		
+				
+			<!-- <input type="hidden" th:field="*{id}" /> -->
+		
+			<!-- <input type="text" th:field = "*{registernum}" class="form-control mb-4 col-4"> -->
+ 		
+		<form action="#" th:action="@{/saveCalloutDetails}" th:object ="${callout}" method="POST">
+		
+			<!-- <input type="text" th:field = "*{registernum}" placeholder="Enter name" class="form-control mb-4 col-4"> -->
+		
+			<input type="text" th:field = "*{whodetail}" placeholder="Enter name" class="form-control mb-4 col-4">
+			
+			<input type="text" th:field = "*{whatdetail}" placeholder="Enter what happened" class="form-control mb-4 col-4">
+			
+			<input type="text" th:field = "*{whendetail}" placeholder="Enter at what time" class="form-control mb-4 col-4">
+			
+			<input type="text" th:field = "*{actiontaken}" placeholder="What actions were taken" class="form-control mb-4 col-4">
+			
+			<input type="text" th:field = "*{calllength}" placeholder="Enter length of call" class="form-control mb-4 col-4">
+			
+			<button type="submit" class="btn btn-info col-2">Enter Details</button>
+		
+		</form>
+		
+		
+		
+	</div>
+
+</body>
+</html>
