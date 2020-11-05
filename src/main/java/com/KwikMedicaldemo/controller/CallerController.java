@@ -67,6 +67,8 @@ public class CallerController {
 //		return "redirect:/";
 //	}
 	
+	
+
 	@PostMapping("/saveCaller")
 	public String saveCaller(@ModelAttribute("caller") Caller caller, Model model) {
 		//save caller to database
@@ -90,6 +92,7 @@ public class CallerController {
 		
 		return "ambulance_dispatch";
 	}
+	
 	
 	
 	@PostMapping("/sendAmbulance")
@@ -148,10 +151,16 @@ public class CallerController {
 //	}
 	
 	
-	@GetMapping("/showFormForUpdates/{id}")
-	public String saveCaller(@PathVariable (value = "id") long registernum, Model model) {
+	@GetMapping("/EnterCalloutDetails/{id}")
+	public String EnterCalloutDetails(@PathVariable (value = "id") long registernum, Model model) {
 		//save caller to database
 		CalloutDetail calloutDetail = new CalloutDetail();
+		
+		//
+		Long APIregisternum = registernum;
+		calloutDetail.setRegisternum(APIregisternum.toString());
+		//
+		
 		model.addAttribute("callout", calloutDetail);
 		return "update_caller_details";	
 	}
@@ -172,7 +181,7 @@ public class CallerController {
 	public String saveCalloutDetails(@ModelAttribute("callout") CalloutDetail calloutDetail) {
 		//save caller to database 
 		
-		calloutDetail.setRegisternum(lastRegisternum.toString());
+		//calloutDetail.setRegisternum(lastRegisternum.toString());
 		
 		calloutDetailService.saveCalloutDetail(calloutDetail);
 		
