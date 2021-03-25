@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//caller table model
 @Entity
 @Table(name = "callers")
 public class Caller {

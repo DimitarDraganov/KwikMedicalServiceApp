@@ -16,6 +16,7 @@ public class ExistingPatientServiceImp implements ExistingPatientService{
 
 	@Override
 	public ExistingPatient getExistingPatientById(long id) {
+		//get an existing patient from the databasae by their Id
 		Optional<ExistingPatient> optional = existingPatientRepository.findById(id);
 		ExistingPatient existingPatient = null;
 		if(optional.isPresent()) {

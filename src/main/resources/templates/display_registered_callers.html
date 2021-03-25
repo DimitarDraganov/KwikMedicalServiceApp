@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Caller system</title>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+
+
+<div align="center" class="container my-2">
+	
+	<h1> Caller List</h1>	
+	
+	<table class = "table table-striped table-responsive-md">
+		<thead>
+			<th> NHS Number</th>
+			<th> Name </th>
+			<th> Address</th>
+			<th> Condition </th>
+			<th> Actions </th>		
+		</thead>
+		<tbody>
+			<tr th:each="caller : ${listCallers}">
+				<td th:text="${caller.registernum}"></td>
+				<td th:text="${caller.name}"></td>
+				<td th:text="${caller.address}"></td>
+				<td th:text="${caller.medcondition}"></td>
+				<!-- <td> <a th:href="@{/showCalloutDetails/{registernum}(id=${caller.registernum})}" class="btn btn-primary">Callout details</a></td> -->
+				<td> <a th:href="@{/deleteCaller/{id}(id=${caller.id})}" class="btn btn-danger">Delete caller</a></td>
+			</tr>		
+		</tbody>	
+	</table>
+		
+</div>
+
+</body>
+</html>

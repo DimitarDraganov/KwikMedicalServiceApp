@@ -19,26 +19,33 @@ public class CallerServiceImpl implements CallerService{
 	
 	@Override
 	public List<Caller> getAllCallers() {
+		//get all callers in the database
 		return callerRepository.findAll();
 	}
 
 	@Override
 	public void saveCaller(Caller caller) {
-		// TODO Auto-generated method stub
+		//save a caller to the database
 		this.callerRepository.save(caller);
 	}
 
 	@Override
 	public Caller getCallerById(long id) {
-		// TODO Auto-generated method stub
+		//find specific caller by Id
 		Optional<Caller> optional = callerRepository.findById(id);
 		Caller caller = null;
 		if(optional.isPresent()) {
 			caller = optional.get();
 		}else {
-			throw new RuntimeException(" Employee not found for id :: " + id);
+			throw new RuntimeException(" Caller not found, id :: " + id);
 		}
 		return caller;
+	}
+
+	@Override
+	public void deleteCallerById(long id) {
+		//delete a specific caller by Id
+		this.callerRepository.deleteById(id);		
 	}
 
 	

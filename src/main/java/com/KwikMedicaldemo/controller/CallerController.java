@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,6 @@ import com.KwikMedicaldemo.model.Caller;
 import com.KwikMedicaldemo.model.CalloutDetail;
 import com.KwikMedicaldemo.model.ExistingPatient;
 import com.KwikMedicaldemo.repository.CallerRepository;
-//import com.KwikMedicaldemo.repository.ExistingPatientRepository;
 import com.KwikMedicaldemo.service.CallerService;
 import com.KwikMedicaldemo.service.CalloutDetailService;
 import com.KwikMedicaldemo.service.ExistingPatientService;
@@ -23,7 +23,6 @@ import com.KwikMedicaldemo.service.ExistingPatientService;
 @Controller
 public class CallerController {
 
-	
 	@Autowired
 	private CallerService callerService;
 	
@@ -38,58 +37,62 @@ public class CallerController {
 	@Autowired
 	private CallerRepository callerRepository;
 	
-	//@Autowired
-	//private ExistingPatientRepository existingPatientRepository;
-	
-	// display list of callers
-	
-	
-	Long lastRegisternum;
-	
-	
 	@GetMapping("/")
 	public String viewHomepage(Model model) {
+		//Redirect too application homepage
 		model.addAttribute("listCallers", callerService.getAllCallers());
 		return "index";
+	}	
+	
+	@GetMapping("/displayRegisteredCallers")
+	public String displayRegisteredCallers(Model model) {
+		//get all registered caller and output to display page
+		
+		model.addAttribute("listCallers", callerService.getAllCallers());
+		return "display_registered_callers";
 	}
+	
+	
+	@GetMapping("/deleteCaller/{id}")
+	public String DeleteCaller(@PathVariable (value = "id") long id, Model model) {
+		//delete caller details by Id
+		
+		this.callerService.deleteCallerById(id);		
+		model.addAttribute("listCallers", callerService.getAllCallers());
+				return "display_registered_callers";
+	}
+	
+	
+	
 	
 	@GetMapping("/registerNewCallerForm")
 	public String registerNewCallerForm(Model model) {
-		Caller caller = new Caller();
-		model.addAttribute("caller", caller);
+		//register new caller
+		
+		Caller caller = new Caller();		
+		model.addAttribute("caller", caller);		
 		return "register_caller";
 	}
-	
-//	@PostMapping("/saveCaller")
-//	public String saveCaller(@ModelAttribute("caller") Caller caller) {
-//		//save caller to database
-//		callerService.saveCaller(caller);
-//		return "redirect:/";
-//	}
-	
 	
 
 	@PostMapping("/saveCaller")
 	public String saveCaller(@ModelAttribute("caller") Caller caller, Model model) {
 		//save caller to database
-		callerService.saveCaller(caller);
 		
-		model.addAttribute("listCallerDetails", caller);
-						
-		String callerId = caller.getRegisternum();
-		
+		callerService.saveCaller(caller);		
+		model.addAttribute("listCallerDetails", caller);					
+		String callerId = caller.getRegisternum();		
 		Long longId=Long.valueOf(callerId);
 		
-		//existingPatientRepository.findById(longId);
 				
-		model.addAttribute("listCallerMedDetails", longId);
-		
-		
+		model.addAttribute("listCallerMedDetails", longId);			
 		model.addAttribute("existingMedDetails", existingPatientService.getExistingPatientById(longId));
+			
 		
-		
-		lastRegisternum = longId;
-		
+		String callerAddress = caller.getAddress();		
+		callerAddress = callerAddress.replaceAll("\\D+","");		
+		model.addAttribute("receivingHospital", callerAddress);
+				
 		return "ambulance_dispatch";
 	}
 	
@@ -100,110 +103,29 @@ public class CallerController {
 		//save caller to database
 		callerService.saveCaller(caller);
 		return "redirect:/";
-	}
-	
-	
-//	@GetMapping("/showFormForUpdate/{id}")
-//	public String showFormForUpdate(@PathVariable (value = "id") long id, Model model) {
-//		
-//		Caller caller = callerService.getCallerById(id);
-//		
-//		model.addAttribute("caller", caller);
-//		return "update_caller_details";
-//		
-//	}
-	
-	
-//	@PostMapping("/saveCallerDetails")
-//	public String saveCaller(@ModelAttribute("caller") Caller caller) {
-//		//save caller to database
-//		callerService.saveCaller(caller);
-//		return "redirect:/";
-//	}
-	
-	
-//	@GetMapping("/showFormForUpdate/{id}")
-//	public String showFormForUpdate(@PathVariable (value = "id") long id, Model model) {
-//		
-//		Caller caller = callerService.getCallerById(id);
-//				
-//		model.addAttribute("callerNHSnum", caller.getRegisternum());
-//		return "update_caller_details";		
-//	}
-	
-	
-	@GetMapping("/showFormForUpdate/{id}")
-	public String showFormForUpdate(@PathVariable (value = "id") long id, Model model) {
-		
-		Caller caller = callerService.getCallerById(id);
-				
-		model.addAttribute("callerNHSnum", caller.getRegisternum());
-		return "update_caller_details";		
 	}	
-	
-	
-//	@GetMapping("/showFormForUpdates")
-//	public String saveCaller(Model model) {
-//		//save caller to database
-//		CalloutDetail calloutDetail = new CalloutDetail();
-//		model.addAttribute("callout", calloutDetail);
-//		return "update_caller_details";	
-//	}
-	
+
 	
 	@GetMapping("/EnterCalloutDetails/{id}")
 	public String EnterCalloutDetails(@PathVariable (value = "id") long registernum, Model model) {
-		//save caller to database
+		//get caller details
 		CalloutDetail calloutDetail = new CalloutDetail();
 		
-		//
 		Long APIregisternum = registernum;
 		calloutDetail.setRegisternum(APIregisternum.toString());
-		//
 		
 		model.addAttribute("callout", calloutDetail);
 		return "update_caller_details";	
 	}
 	
-	
-	
-	
-	
-//	@PostMapping("/saveCallerDetails")
-//	public String saveCallerDetails(@ModelAttribute("callerNHSnum") Caller caller, Model model) {
-//		//save caller to database
-//		callerService.saveCaller(caller);
-//		return "redirect:/";
-//	}
-	
-	
+
 	@PostMapping("/saveCalloutDetails")
 	public String saveCalloutDetails(@ModelAttribute("callout") CalloutDetail calloutDetail) {
-		//save caller to database 
-		
-		//calloutDetail.setRegisternum(lastRegisternum.toString());
-		
+		//save caller to database 				
 		calloutDetailService.saveCalloutDetail(calloutDetail);
 		
 		return "redirect:/";
 	}
-	
-	
-	
-	
-//	@PostMapping("/saveCaller")
-//	public String saveCaller(@ModelAttribute("caller") Caller caller) {
-//		//save caller to database
-//		callerRepository.save(caller);
-//		return "redirect:/";
-//	}
-	
-	
-//	@PostMapping(path = "/saveCaller", produces = "application/JSON")
-//	public String saveCaller(@ModelAttribute("caller") Caller caller) {
-//		callerRepository.save(caller);
-//		return "redirect:/";
-//	}
 	
 	
 }

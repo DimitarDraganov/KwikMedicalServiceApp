@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//existing patient table model
 @Entity
 @Table(name = "existingpatients")
 public class ExistingPatient {

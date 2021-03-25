@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.KwikMedicaldemo.model.Caller;
 
+//caller interface extends JpaRepository
 @Repository
 public interface CallerRepository extends JpaRepository<Caller, Long>{
 

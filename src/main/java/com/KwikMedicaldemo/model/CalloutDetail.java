@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//callout details table model
 @Entity
 @Table(name = "calloutdetails")
 public class CalloutDetail {
@@ -21,6 +22,9 @@ public class CalloutDetail {
 	@Column(name = "whodetail")
 	private String whodetail;
 	
+	@Column(name = "wheredetail")
+	private String wheredetail;
+
 	@Column(name = "whatdetail")
 	private String whatdetail;
 	
@@ -56,6 +60,14 @@ public class CalloutDetail {
 
 	public void setWhodetail(String whodetail) {
 		this.whodetail = whodetail;
+	}
+	
+	public String getWheredetail() {
+		return wheredetail;
+	}
+
+	public void setWheredetail(String wheredetail) {
+		this.wheredetail = wheredetail;
 	}
 
 	public String getWhatdetail() {
